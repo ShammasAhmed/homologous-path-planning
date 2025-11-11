@@ -66,7 +66,7 @@ class Model:
         E_full = E + E_rev
 
         V = self.vertices
-        s = V[0]; t = V[-1]
+        s = ref_path[0]; t = ref_path[-1]
 
         x_ref = self._path_vector(ref_path)
         H = self._create_H()

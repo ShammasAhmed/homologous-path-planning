@@ -15,7 +15,7 @@ class Model1:
         self.vertices, self.vertdict = self.grid.get_vertices()
         self.edges = self.grid.get_edges()
 
-    @staticmethod
+    # @staticmethod
     def _cost(self):
         """Create a cost vector for the edges"""
         vdict = self.vertdict

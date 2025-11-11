@@ -20,6 +20,16 @@ path = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
         209, 228, 247, 266, 285, 304, 323, 342,
         343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360]
 
+patha = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+        37, 56, 75, 94, 113, 132, 151, 170, 189, 208,
+        207, 206, 205, 204, 203, 202, 201]
+pathb = [201, 219, 218, 217, 216, 215, 214, 213, 212, 211,
+        191, 190,
+        209, 228, 247, 266]
+pathc = [266, 285, 304, 323, 342,
+        343, 344, 345, 346, 347, 348, 349, 350, 351, 352, 353, 354, 355, 356, 357, 358, 359, 360]
+# path = [0, 1, 2, 3, 23, 5, 25, 45, 27]
+
 # holes = [(2, 3), (6, 5)]
 # path = [0, 1, 2, 3, 4, 5, 6, 7,
 #         16, 25, 34, 43, 52, 61,
@@ -45,14 +55,46 @@ plot = Plotter(rows, cols, holes)
 
 model = Model(rows, cols, holes)
 start1 = time.time()
-opt_path, opt_val, opt_edge_vals = model.solve(path)
+opt_path, opt_val, opt_edge_vals = model.solve(patha)
 end1 = time.time()
 print(f"Model 1 Solve Time: {end1 - start1} seconds")
 
 # plot.plotfig(opt_path, opt_edge_vals, color = "blue")
 
 fig, ax = plt.subplots(figsize=(8, 6))
-plot.plotfig(path, color="orange", ax = ax)            # creates Figure 1
+plot.plotfig(patha, color="orange", ax = ax)            # creates Figure 1
+plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
+# if ax:
+#         ax.legend(["Reference Path", "Optimized Path"])
+plt.show()
+
+# BREAK
+
+start1 = time.time()
+opt_path, opt_val, opt_edge_vals = model.solve(pathb)
+end1 = time.time()
+print(f"Model 1 Solve Time: {end1 - start1} seconds")
+
+# plot.plotfig(opt_path, opt_edge_vals, color = "blue")
+
+fig, ax = plt.subplots(figsize=(8, 6))
+plot.plotfig(pathb, color="orange", ax = ax)            # creates Figure 1
+plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
+# if ax:
+#         ax.legend(["Reference Path", "Optimized Path"])
+plt.show()
+
+# BREAK
+
+start1 = time.time()
+opt_path, opt_val, opt_edge_vals = model.solve(pathc)
+end1 = time.time()
+print(f"Model 1 Solve Time: {end1 - start1} seconds")
+
+# plot.plotfig(opt_path, opt_edge_vals, color = "blue")
+
+fig, ax = plt.subplots(figsize=(8, 6))
+plot.plotfig(pathc, color="orange", ax = ax)            # creates Figure 1
 plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
 # if ax:
 #         ax.legend(["Reference Path", "Optimized Path"])
@@ -64,6 +106,13 @@ plt.show()
 # end2 = time.time()
 # print(f"Model 2 Solve Time: {end2 - start2} seconds")
 # plot.plotfig(opt_path1, opt_edge_vals1, color = "blue")
+
+# fig, ax = plt.subplots(figsize=(8, 6))
+# plot.plotfig(path, color="orange", ax = ax)            # creates Figure 1
+# plot.plotfig(opt_path1, opt_edge_vals1, color="blue", ax = ax)          # creates Figure 2
+# # if ax:
+# #         ax.legend(["Reference Path", "Optimized Path"])
+# plt.show()
 
 # print(f"Optimal Path: {opt_path}")
 # print(f"Optimal Path Cost: {opt_val}")
@@ -108,18 +157,18 @@ from_360_path = PathParser.reconstruct_path(from_360_prev, 360, best_j)
 print(f"Path from 202 to {best_i}: {from_202_path}")
 print(f"Path from 360 to {best_j}: {from_360_path}")
 
-path1 = [0, 1, 2, 3, 4, 5, 6, 7, 27, 47, 48, 49, 50, 51, 52, 53, 73, 92, 111, 129, 147, 165, 183, 201, 219, 218, 217, 216, 215, 233, 232, 231, 249, 268, 287, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 337, 338, 339, 359, 360]
-path2 = [0, 1, 2, 3, 4, 5, 6, 7, 27, 47, 48, 49, 50, 51, 52, 53, 73, 92, 111, 129, 147, 165, 183, 202, 201, 219, 218, 217, 216, 215, 233, 232, 231, 249, 268, 287, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 337, 338, 339, 359, 360]
+# path1 = [0, 1, 2, 3, 4, 5, 6, 7, 27, 47, 48, 49, 50, 51, 52, 53, 73, 92, 111, 129, 147, 165, 183, 201, 219, 218, 217, 216, 215, 233, 232, 231, 249, 268, 287, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 337, 338, 339, 359, 360]
+# path2 = [0, 1, 2, 3, 4, 5, 6, 7, 27, 47, 48, 49, 50, 51, 52, 53, 73, 92, 111, 129, 147, 165, 183, 202, 201, 219, 218, 217, 216, 215, 233, 232, 231, 249, 268, 287, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 337, 338, 339, 359, 360]
 
-fig, ax = plt.subplots(figsize=(8, 6))
-plot.plotfig(path, color="orange", ax = ax)            # creates Figure 1
-plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
-plot.plotfig(path1, color = "green", ax = ax)
-plt.show()
+# fig, ax = plt.subplots(figsize=(8, 6))
+# plot.plotfig(path, color="orange", ax = ax)            # creates Figure 1
+# plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
+# plot.plotfig(path1, color = "green", ax = ax)
+# plt.show()
 
-fig, ax = plt.subplots(figsize=(8, 6))
-plot.plotfig(path, color="orange", ax = ax)            # creates Figure 1
-plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
-plot.plotfig(path2, color = "red", ax = ax)
-plt.show()
+# fig, ax = plt.subplots(figsize=(8, 6))
+# plot.plotfig(path, color="orange", ax = ax)            # creates Figure 1
+# plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
+# plot.plotfig(path2, color = "red", ax = ax)
+# plt.show()
 
