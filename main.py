@@ -45,7 +45,11 @@ plot = Plotter(rows, cols, holes)
 
 model = Model(rows, cols, holes)
 start1 = time.time()
+<<<<<<< Updated upstream
 opt_path, opt_val, opt_edge_vals = model.solve(path)
+=======
+opt_path, opt_val, opt_edge_vals = model.solveMTZ(path)
+>>>>>>> Stashed changes
 end1 = time.time()
 print(f"Model 1 Solve Time: {end1 - start1} seconds")
 
@@ -58,6 +62,11 @@ plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates 
 #         ax.legend(["Reference Path", "Optimized Path"])
 plt.show()
 
+<<<<<<< Updated upstream
+=======
+# BREAK
+
+>>>>>>> Stashed changes
 # model1 = Model1(rows, cols, holes)
 # start2 = time.time()
 # opt_path1, opt_val1, opt_edge_vals1 = model1.solve_OHCP(path)
