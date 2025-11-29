@@ -15,7 +15,6 @@ class Model1:
         self.vertices, self.vertdict = self.grid.get_vertices()
         self.edges = self.grid.get_edges()
 
-    @staticmethod
     def _cost(self):
         """Create a cost vector for the edges"""
         vdict = self.vertdict
@@ -93,3 +92,40 @@ class Model1:
             opt_path = [abs(v) > tol for v in edges_val]
 
         return opt_path, m.ObjVal, edges_val
+    
+    def solve_dual_OHCP(self, path):
+        E = list(self.edges)
+        T = list(self.grid.generate_triangles())
+        D = self.grid.build_d2()
+
+        x_ref = self._path_vector(path)
+        cost = self._cost()
+
+        m = gp.Model("OHCP_dual")
+
+        # Dual variable λ_e for each edge
+        lam = m.addVars(E, lb=-GRB.INFINITY, ub=GRB.INFINITY, name="lambda")
+
+        # Objective: maximize c^T λ
+        m.setObjective(
+            gp.quicksum(x_ref[E.index(e)] * lam[e] for e in E),
+            GRB.MAXIMIZE
+        )
+
+        # 1. Bounds from x⁺ and x⁻:  -w_e ≤ λ_e ≤ w_e
+        for e in E:
+            m.addConstr(lam[e] <= cost[e],       name=f"ub_cost_{e}")
+            m.addConstr(lam[e] >= -cost[e],      name=f"lb_cost_{e}")
+
+        # 2. Cocycle constraints: Dᵀ λ = 0   (one per triangle)
+        for t in T:
+            m.addConstr(
+                gp.quicksum(D[E.index(e), T.index(t)] * lam[e] for e in E) == 0,
+                name=f"cocycle_{t}"
+            )
+
+        m.optimize()
+
+        lam_val = {e: lam[e].X for e in E}
+
+        return lam_val, m.ObjVal

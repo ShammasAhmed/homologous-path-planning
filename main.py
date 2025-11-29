@@ -55,8 +55,6 @@ opt_path, opt_val, opt_edge_vals = model.solveflow(path)
 end1 = time.time()
 print(f"Flow Model Solve Time: {end1 - start1} seconds")
 
-# plot.plotfig(opt_path, opt_edge_vals, color = "blue")
-
 fig, ax = plt.subplots(figsize=(8, 6))
 plot.plotfig(path, color="orange", ax = ax)            # creates Figure 1
 plot.plotfig(opt_path, opt_edge_vals, color="blue", ax = ax)          # creates Figure 2
@@ -66,16 +64,20 @@ plt.show()
 
 # BREAK
 
+## OHCP and Dual
+
 # model1 = Model1(rows, cols, holes)
 # start2 = time.time()
 # opt_path1, opt_val1, opt_edge_vals1 = model1.solve_OHCP(path)
 # end2 = time.time()
 # print(f"Model 2 Solve Time: {end2 - start2} seconds")
 # plot.plotfig(opt_path1, opt_edge_vals1, color = "blue")
+# plt.show()
 
-# print(f"Optimal Path: {opt_path}")
-# print(f"Optimal Path Cost: {opt_val}")
-# print(f"Optimal Edge Values: {opt_edge_vals}")
+# lambdaval, obj = model1.solve_dual_OHCP(path)
+# print(f"Dual Objective Value: {lambdaval}")
+
+## Analyzing the optimized path
 
 # pure_path, cycles = PathParser.parse_path(opt_edge_vals, Eprime) ## edges are directional here
 # print(f"Pure Path: {pure_path}")
